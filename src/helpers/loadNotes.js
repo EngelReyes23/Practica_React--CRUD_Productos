@@ -2,7 +2,7 @@ import { db } from "../firebase/firebaseConfig";
 
 export const loadNotes = async (uid) => {
   // Ruta de la colección
-  const collectionPath = `users/${uid}/notes`;
+  const collectionPath = `productos/`;
 
   const notes = await db.collection(collectionPath).get();
 

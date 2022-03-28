@@ -16,4 +16,12 @@ export const TYPES = {
   notesDelete: "[Notes] delete note",
   notesLoad: "[Notes] load notes",
   notesUpdate: "[Notes] update note",
+
+  // Products
+  productsAddNew: "[Products] add new product",
+  productsDelete: "[Products] delete product",
+  productsGetAll: "[Products] get all products",
+  productsUpdate: "[Products] update product",
+  productsLogout: "[Products] logout",
+  productsSet: "[Products] set product",
 };
