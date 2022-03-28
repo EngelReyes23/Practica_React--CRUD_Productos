@@ -4,7 +4,7 @@ import { loadProducts } from "../helpers/loadProducts";
 import { TYPES } from "../types/TYPES";
 import { finishLoading, startLoading } from "./ui";
 
-const collectionPath = `productos/`;
+const collectionPath = `products`;
 
 //#region Create Product
 // Agrega un nuevo producto al estado local
@@ -14,17 +14,18 @@ const addNewProduct = (id, product) => ({
 });
 
 // Agrega un nuevo producto a la base de datos
+// TODO: Adaptar para que reciba un objeto con todos los datos del producto
 export const startNewProduct = () => {
   return async (dispatch) => {
     dispatch(startLoading());
 
     // Cuerpo del producto
     const newProduct = {
-      category: "",
-      description: "",
-      name: "",
-      price: 0,
-      provider: "",
+      category: "Refrescos",
+      description: "Pepsi 1 Litro",
+      name: "Pepsi",
+      price: 20,
+      provider: "Pepsi",
     };
 
     try {
@@ -33,6 +34,13 @@ export const startNewProduct = () => {
 
       dispatch(addNewProduct(doc.id, newProduct)); // Agrega el producto a la lista de productos
       dispatch(finishLoading());
+
+      // Alerta de éxito
+      Swal.fire(
+        "Product created",
+        "The product has been created correctly",
+        "success"
+      );
     } catch {
       Swal.fire("Error", "The product could not be added", "error");
       dispatch(finishLoading());
@@ -59,7 +67,7 @@ export const getAllProducts = () => {
 
       dispatch(setProducts(products)); // Establece los productos en el estado
       dispatch(finishLoading());
-    } catch {
+    } catch (error) {
       Swal.fire("Error", "The list of products could not be loaded", "error");
       dispatch(finishLoading());
     }
@@ -86,6 +94,13 @@ export const startUpdateProduct = (product) => {
         .update(productToFireStore);
 
       dispatch(updateProduct(product.id)); // Actualiza el producto en el estado local
+
+      // Alerta de éxito
+      Swal.fire(
+        "Updated product",
+        "The product has been updated correctly",
+        "success"
+      );
     } catch {
       Swal.fire("Error", "The product could not be updated", "error");
       dispatch(finishLoading());
@@ -107,13 +122,20 @@ export const startDeleteProduct = (id) => {
     dispatch(startLoading());
 
     try {
-      await db.collection(`${collectionPath}/${id}`).delete();
+      await db.doc(`${collectionPath}/${id}`).delete();
 
       dispatch(deleteProduct(id)); // Borra el producto del estado local
       dispatch(finishLoading());
-    } catch {
+
+      // Alerta de éxito
+      Swal.fire(
+        "Deleted product",
+        "The product has been deleted correctly",
+        "success"
+      );
+    } catch (err) {
       dispatch(finishLoading());
-      Swal.fire("Error", "The product could not be deleted", "error");
+      Swal.fire("Error", err.message, "error");
     }
   };
 };

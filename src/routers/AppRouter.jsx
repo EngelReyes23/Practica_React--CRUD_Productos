@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { HashRouter, Redirect, Switch } from "react-router-dom";
 import { login } from "../actions/auth";
 import { getNotes } from "../actions/notes";
+import { getAllProducts } from "../actions/products";
 import { JournalScreen } from "../components/journal/JournalScreen";
 import { Loading } from "../components/loading/Loading";
 import { firebase } from "../firebase/firebaseConfig";
@@ -26,10 +27,12 @@ export const AppRouter = () => {
     firebase.auth().onAuthStateChanged(async (user) => {
       // verifica si contiene un usuario
       if (user?.uid) {
+        console.log('USER', user.email)
         setIsLogged(true);
         dispatch(login(user.uid, user.displayName));
 
         dispatch(getNotes(user.uid));
+        dispatch(getAllProducts());
       } else setIsLogged(false);
       setReady(true);
     });
@@ -40,7 +43,7 @@ export const AppRouter = () => {
 
   return (
     <HashRouter>
-      <div>
+      <div className={'Engel'}>
         {/* loading para mostrar en cualquier pantalla */}
         {loading && <Loading />}
         <Switch>

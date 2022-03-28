@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import "sweetalert2/dist/sweetalert2.css";
 import { activeNote, startDeleteNote } from "../../actions/notes";
 import { useForm } from "../../hooks/useForm";
 import { NotesAppBar } from "./NotesAppBar";
@@ -41,7 +40,9 @@ export const NoteScreen = () => {
       cancelButtonColor: "#ff0000",
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
-      if (result.isConfirmed) dispatch(startDeleteNote(id));
+      if (result.isConfirmed) {
+        dispatch(startDeleteNote(id));
+      }
     });
   };
   //#endregion Handles

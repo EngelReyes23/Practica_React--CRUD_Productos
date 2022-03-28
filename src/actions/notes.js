@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import "sweetalert2/dist/sweetalert2.css";
+
 import { db } from "../firebase/firebaseConfig";
 import { uploadFile } from "../helpers/fileUpload";
 import { loadNotes } from "../helpers/loadNotes";

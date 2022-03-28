@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import validator from "validator";
 import { loginWidthEmailPassword, loginWidthGoogle } from "../../actions/auth";
 import { showError } from "../../actions/ui";
@@ -59,7 +58,7 @@ export const LoginScreen = () => {
   return (
     <form className={"auth__form"} onSubmit={handleLogin}>
       <h3 className={"auth__title"}>Login</h3>
-      <button
+      {/* <button
         onClick={handleGoogleLogin}
         type={"button"}
         className={"btn btn-google"}
@@ -71,7 +70,7 @@ export const LoginScreen = () => {
           alt="google button"
         />{" "}
         Log in with Google
-      </button>
+      </button> */}
 
       {msgError && <div className="auth__alert-error">{msgError}</div>}
 
@@ -107,11 +106,11 @@ export const LoginScreen = () => {
         Login
       </button>
 
-      <p className={"QuestionRegistration"}>Don´t have an account?</p>
+      {/* <p className={"QuestionRegistration"}>Don´t have an account?</p>
 
       <Link to="/auth/register" className={"btn btn-singUP"}>
         Sing up
-      </Link>
+      </Link> */}
     </form>
   );
 };

@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startLogout } from "../../actions/auth";
 import { startNewNote } from "../../actions/notes";
+import { startNewProduct } from "../../actions/products";
 import { JournalEntries } from "./JournalEntries";
 
 export const Sidebar = () => {
@@ -18,6 +19,7 @@ export const Sidebar = () => {
 
   const handleNewEntry = () => {
     dispatch(startNewNote());
+    dispatch(startNewProduct());
   };
   //#endregion Handles
 

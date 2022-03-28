@@ -19,7 +19,7 @@ export const showError = (errorName) => {
     // retira el error después de 3 segundos
     setTimeout(() => {
       dispatch(removeError());
-    }, 5000);
+    }, 2000);
   };
 };
 
