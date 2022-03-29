@@ -69,9 +69,9 @@ export const getAllProducts = () => {
 //#endregion Get Products
 
 //#region Update Product
-const updateProduct = (id) => ({
+const updateProduct = (id, product) => ({
   type: TYPES.productsUpdate,
-  payload: id,
+  payload: { id, ...product },
 });
 
 export const startUpdateProduct = (product) => {
@@ -86,8 +86,9 @@ export const startUpdateProduct = (product) => {
         .doc(`${collectionPath}/${product.id}`)
         .update(productToFireStore);
 
-      dispatch(updateProduct(product.id)); // Actualiza el producto en el estado local
+      dispatch(updateProduct(product.id, product)); // Actualiza el producto en el estado local
 
+      dispatch(finishLoading());
       // Alerta de éxito
       Swal.fire(
         "Updated product",

@@ -3,6 +3,7 @@ import { TYPES } from "../types/TYPES";
 const initialState = {
   products: [],
   activeProduct: null,
+  isEdit: false,
 };
 
 export const productsReducer = (state = initialState, action) => {
@@ -43,6 +44,7 @@ export const productsReducer = (state = initialState, action) => {
       return {
         ...state,
         activeProduct: action.payload,
+        isEdit: action.payload !== null ? true : false,
       };
 
     default:

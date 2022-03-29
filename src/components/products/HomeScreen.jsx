@@ -34,6 +34,7 @@ export const HomeScreen = () => {
           <table className="table">
             <thead>
               <tr>
+                <th>#</th>
                 <th>Code</th>
                 <th>Product</th>
                 <th>Description</th>
@@ -46,8 +47,8 @@ export const HomeScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => (
-                <ProductItem key={product.id} product={product} />
+              {products.map((product, i) => (
+                <ProductItem i={i} key={product.id} product={product} />
               ))}
             </tbody>
           </table>

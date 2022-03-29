@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { setActiveProduct } from "../../actions/products";
 import { setShowForm } from "../../actions/ui";
 
-export const ProductItem = ({ product }) => {
+export const ProductItem = ({ product, i }) => {
   const createdAt = moment(product.createdAt).format("DD/MM/YYYY");
   const expirationDate = moment(product.expirationDate).format("DD/MM/YYYY");
 
@@ -17,11 +17,12 @@ export const ProductItem = ({ product }) => {
 
   return (
     <tr
-      onDoubleClick={() => {
+      onClick={() => {
         console.log(product);
         handleShowProduct();
       }}
     >
+      <td>{++i}</td>
       <td>{product.code}</td>
       <td>{product.name}</td>
       <td>{product.description}</td>

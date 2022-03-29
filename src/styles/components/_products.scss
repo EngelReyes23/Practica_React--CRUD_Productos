@@ -106,6 +106,19 @@
   td {
     padding: 0.5rem;
     font-size: 1rem;
+  }
+
+  tbody tr {
+    cursor: pointer;
     background-color: var(--tertiary);
+
+    &:hover {
+      background-color: var(--quaternary);
+    }
+
+    &:active {
+      transform: translateY(1px);
+      background-color: var(--secondary);
+    }
   }
 }

@@ -1,6 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { startNewProduct } from "../../actions/products";
+import {
+  setActiveProduct,
+  startNewProduct,
+  startUpdateProduct,
+} from "../../actions/products";
 import { setHideForm } from "../../actions/ui";
 import { useForm } from "../../hooks/useForm";
 
@@ -20,14 +24,15 @@ const newProduct = {
 export const FormProduct = () => {
   const dispatch = useDispatch();
 
-  const { activeProduct } = useSelector((state) => state.products);
+  const { activeProduct, isEdit } = useSelector((state) => state.products);
 
-  const { formValues, handleInputChange, reset } = useForm(
+  const { formValues, handleInputChange } = useForm(
     activeProduct || newProduct
   );
 
   const handleHideForm = () => {
     dispatch(setHideForm());
+    dispatch(setActiveProduct(null));
   };
 
   const {
@@ -44,7 +49,11 @@ export const FormProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formValues);
-    dispatch(startNewProduct(formValues));
+    !isEdit
+      ? dispatch(startNewProduct(formValues))
+      : dispatch(startUpdateProduct(formValues));
+
+    dispatch(setActiveProduct(null));
     dispatch(setHideForm());
   };
 
@@ -178,6 +187,9 @@ export const FormProduct = () => {
             className="btn btn-cancel"
           >
             Cancel
+          </button>
+          <button type="button" className="btn btn-delete">
+            Delete
           </button>
         </div>
       </form>
