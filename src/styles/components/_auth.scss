@@ -109,7 +109,10 @@
   }
 
   &:disabled {
-    cursor: progress;
+    display: none !important;
+    cursor: not-allowed;
+    background-color: var(--primary) !important;
+    color:#000000 !important;
   }
 
   &-google {

@@ -5,8 +5,8 @@ import { setActiveProduct } from "../../actions/products";
 import { setShowForm } from "../../actions/ui";
 
 export const ProductItem = ({ product, i }) => {
-  const createdAt = moment(product.createdAt).format("DD/MM/YYYY");
-  const expirationDate = moment(product.expirationDate).format("DD/MM/YYYY");
+  const createdAt = moment(product.createdAt).fromNow();
+  const expirationDate = moment(product.expirationDate).format("DD MMMM YYYY");
 
   const dispatch = useDispatch();
 
@@ -26,7 +26,7 @@ export const ProductItem = ({ product, i }) => {
       <td>{product.code}</td>
       <td>{product.name}</td>
       <td>{product.description}</td>
-      <td>{product.price}</td>
+      <td>{`$ ${product.price}`}</td>
       <td>{product.stock}</td>
       <td>{product.provider}</td>
       <td>{product.category}</td>

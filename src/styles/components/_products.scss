@@ -114,10 +114,6 @@
 
     &:hover {
       background-color: var(--quaternary);
-    }
-
-    &:active {
-      transform: translateY(1px);
       background-color: var(--secondary);
     }
   }

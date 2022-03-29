@@ -1,6 +1,6 @@
 import { TYPES } from "../types/TYPES";
 
-const initialState = { uid: "", name: "", email: "" };
+const initialState = { uid: "", name: "", email: "", rol: "" };
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -9,6 +9,7 @@ export const authReducer = (state = initialState, action) => {
         uid: action.payload.uid,
         name: action.payload.displayName,
         email: action.payload.email,
+        rol: action.payload.rol,
       };
 
     case TYPES.logout:

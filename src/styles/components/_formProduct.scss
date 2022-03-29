@@ -1,7 +1,7 @@
 .form__container {
   min-width: 100vw;
   min-height: 100vh;
-  background-color:rgba(0, 0, 0, 0.521);
+  background-color: rgba(0, 0, 0, 0.521);
   position: absolute;
   top: 0;
   left: 0;
@@ -16,51 +16,44 @@
   width: 100%;
   max-width: 500px;
   padding: 1rem;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   overflow: hidden;
-
+  
   background-color: var(--secondary);
-
-
+  
   .form__input {
+    text-align: center;
     border: none;
     width: 100%;
-    padding: .5rem;
+    padding: 0.5rem;
     outline: none;
   }
-
 
   .buttons {
     display: flex;
     justify-content: space-between;
     gap: 0.5rem;
     margin-top: 1rem;
-    
+
+    .btn-delete,
+    .btn-save {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      gap: 0.5rem;
+      background-color: #ff0000;
+    }
+
     .btn-save {
       color: #fff;
       background-color: var(--tertiary);
     }
-    
+
     .btn-cancel {
       color: #fff;
-      
+
       background-color: var(--quaternary);
     }
-    
   }
-
-
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 }

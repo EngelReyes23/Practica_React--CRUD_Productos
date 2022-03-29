@@ -40,6 +40,7 @@ export const productsReducer = (state = initialState, action) => {
         ),
       };
 
+    // Establece el producto activo en el estado local
     case TYPES.productsSetActive:
       return {
         ...state,

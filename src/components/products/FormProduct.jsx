@@ -1,7 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
 import {
   setActiveProduct,
+  startDeleteProduct,
   startNewProduct,
   startUpdateProduct,
 } from "../../actions/products";
@@ -22,18 +24,17 @@ const newProduct = {
 };
 
 export const FormProduct = () => {
+  //#region Redux
   const dispatch = useDispatch();
 
   const { activeProduct, isEdit } = useSelector((state) => state.products);
+  const { rol } = useSelector((state) => state.auth);
+  //#endregion Redux
 
+  //#region States
   const { formValues, handleInputChange } = useForm(
     activeProduct || newProduct
   );
-
-  const handleHideForm = () => {
-    dispatch(setHideForm());
-    dispatch(setActiveProduct(null));
-  };
 
   const {
     category,
@@ -45,10 +46,16 @@ export const FormProduct = () => {
     provider,
     stock,
   } = formValues;
+  //#endregion States
+
+  //#region Handlers
+  const handleHideForm = () => {
+    dispatch(setHideForm());
+    dispatch(setActiveProduct(null));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formValues);
     !isEdit
       ? dispatch(startNewProduct(formValues))
       : dispatch(startUpdateProduct(formValues));
@@ -56,6 +63,24 @@ export const FormProduct = () => {
     dispatch(setActiveProduct(null));
     dispatch(setHideForm());
   };
+
+  const handleDelete = () => {
+    Swal.fire({
+      title: "You're sure?",
+      text: "Once deleted, you will not be able to recover this record",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#30475E",
+      cancelButtonColor: "#F05454",
+      confirmButtonText: "Yes, delete",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(setActiveProduct(null));
+        dispatch(startDeleteProduct(activeProduct.id));
+      }
+    });
+  };
+  //#endregion Handlers
 
   return (
     <div className="form__container">
@@ -180,16 +205,29 @@ export const FormProduct = () => {
         </div>
 
         <div className="buttons">
-          <button className="btn btn-save">Save</button>
+          {rol !== "cajero" && (
+            <button className="btn btn-save">
+              <span className="material-icons-round">save</span>
+              <span>Save</span>
+            </button>
+          )}
+          {rol !== "cajero" && (
+            <button
+              disabled={!isEdit}
+              type="button"
+              className="btn btn-delete"
+              onClick={handleDelete}
+            >
+              <span className="material-icons-round">delete_outline</span>
+              <span>Delete</span>
+            </button>
+          )}
           <button
             onClick={handleHideForm}
             type="button"
             className="btn btn-cancel"
           >
-            Cancel
-          </button>
-          <button type="button" className="btn btn-delete">
-            Delete
+            {rol !== "cajero" ? "Cancel" : "Close"}
           </button>
         </div>
       </form>

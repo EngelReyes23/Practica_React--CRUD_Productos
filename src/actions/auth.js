@@ -38,10 +38,32 @@ export const loginWidthGoogle = () => {
 };
 
 // Inicia sesión en la app, establece el estado de la app
-export const login = (uid, displayName, email) => ({
-  type: TYPES.login,
-  payload: { uid, displayName, email },
-});
+export const login = (uid, displayName, email) => {
+  let rol;
+
+  switch (displayName) {
+    case "Admin":
+      rol = "admin";
+      break;
+
+    case "Bodega":
+      rol = "bodega";
+      break;
+
+    case "Cajero":
+      rol = "cajero";
+      break;
+
+    default:
+      rol = "user";
+      break;
+  }
+
+  return {
+    type: TYPES.login,
+    payload: { uid, displayName, email, rol },
+  };
+};
 //#endregion Login
 
 //#region Register
