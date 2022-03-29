@@ -3,6 +3,7 @@ import { TYPES } from "../types/TYPES";
 const initialState = {
   msgError: null,
   loading: false,
+  showForm: false,
 };
 
 export const uiReducer = (state = initialState, action) => {
@@ -29,6 +30,18 @@ export const uiReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+      };
+
+    case TYPES.uiShowForm:
+      return {
+        ...state,
+        showForm: true,
+      };
+
+    case TYPES.uiHideForm:
+      return {
+        ...state,
+        showForm: false,
       };
 
     default:

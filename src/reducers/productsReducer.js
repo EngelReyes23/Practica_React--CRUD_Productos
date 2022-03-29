@@ -2,8 +2,7 @@ import { TYPES } from "../types/TYPES";
 
 const initialState = {
   products: [],
-  loading: false,
-  error: null,
+  activeProduct: null,
 };
 
 export const productsReducer = (state = initialState, action) => {
@@ -38,6 +37,12 @@ export const productsReducer = (state = initialState, action) => {
         products: state.products.map((product) =>
           product.id === action.payload.id ? action.payload : product
         ),
+      };
+
+    case TYPES.productsSetActive:
+      return {
+        ...state,
+        activeProduct: action.payload,
       };
 
     default:

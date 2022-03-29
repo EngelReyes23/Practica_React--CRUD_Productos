@@ -14,7 +14,7 @@ export const loginWidthEmailPassword = (email, password) => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(({ user }) => {
-        dispatch(login(user.uid, user.displayName));
+        dispatch(login(user.uid, user.displayName, user.email));
         dispatch(finishLoading());
       })
       .catch((error) => {
@@ -32,15 +32,15 @@ export const loginWidthGoogle = () => {
       .auth()
       .signInWithPopup(googleAuthProvider)
       .then(({ user }) => {
-        dispatch(login(user.uid, user.displayName));
+        dispatch(login(user.uid, user.displayName, user.email));
       });
   };
 };
 
 // Inicia sesión en la app, establece el estado de la app
-export const login = (uid, displayName) => ({
+export const login = (uid, displayName, email) => ({
   type: TYPES.login,
-  payload: { uid, displayName },
+  payload: { uid, displayName, email },
 });
 //#endregion Login
 

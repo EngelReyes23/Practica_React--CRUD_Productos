@@ -1,0 +1,66 @@
+.form__container {
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color:rgba(0, 0, 0, 0.521);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form__newProduct {
+  width: 100%;
+  max-width: 500px;
+  padding: 1rem;
+  border-radius: .5rem;
+  overflow: hidden;
+
+  background-color: var(--secondary);
+
+
+  .form__input {
+    border: none;
+    width: 100%;
+    padding: .5rem;
+    outline: none;
+  }
+
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    
+    .btn-save {
+      color: #fff;
+      background-color: var(--tertiary);
+    }
+    
+    .btn-cancel {
+      color: #fff;
+      
+      background-color: var(--quaternary);
+    }
+    
+  }
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+}

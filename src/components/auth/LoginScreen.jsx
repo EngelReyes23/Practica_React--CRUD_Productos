@@ -16,8 +16,8 @@ export const LoginScreen = () => {
 
   //#region States
   const { handleInputChange, formValues } = useForm({
-    email: "",
-    password: "",
+    email: "admin@admin.com",
+    password: "admin123",
   });
 
   const { email, password } = formValues;

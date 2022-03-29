@@ -28,3 +28,7 @@ export const startLoading = () => ({ type: TYPES.uiStartLoading });
 
 // Oculta el loading
 export const finishLoading = () => ({ type: TYPES.uiFinishLoading });
+
+export const setShowForm = () => ({ type: TYPES.uiShowForm });
+
+export const setHideForm = () => ({ type: TYPES.uiHideForm });

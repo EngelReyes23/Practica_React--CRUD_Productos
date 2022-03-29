@@ -8,6 +8,8 @@ export const TYPES = {
   uiRemoveError: "[UI] remove error",
   uiStartLoading: "[UI] start loading",
   uiFinishLoading: "[UI] finish loading",
+  uiShowForm: "[UI] show form",
+  uiHideForm: "[UI] hide form",
 
   // Notes
   notesActive: "[Notes] active note",
@@ -24,4 +26,5 @@ export const TYPES = {
   productsUpdate: "[Products] update product",
   productsLogout: "[Products] logout",
   productsSet: "[Products] set product",
+  productsSetActive: "[Products] active product",
 };

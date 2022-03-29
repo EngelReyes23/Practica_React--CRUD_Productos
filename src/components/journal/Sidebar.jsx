@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { startLogout } from "../../actions/auth";
 import { startNewNote } from "../../actions/notes";
 import { startNewProduct } from "../../actions/products";
-import { JournalEntries } from "./JournalEntries";
 
 export const Sidebar = () => {
   //#region Redux
@@ -39,7 +38,6 @@ export const Sidebar = () => {
         <span className="material-icons md-48">add_box</span>
         <span>New Entry</span>
       </div>
-      <JournalEntries />
     </aside>
   );
 };

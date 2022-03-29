@@ -15,18 +15,11 @@ const addNewProduct = (id, product) => ({
 
 // Agrega un nuevo producto a la base de datos
 // TODO: Adaptar para que reciba un objeto con todos los datos del producto
-export const startNewProduct = () => {
+export const startNewProduct = (newProduct) => {
   return async (dispatch) => {
     dispatch(startLoading());
 
-    // Cuerpo del producto
-    const newProduct = {
-      category: "Refrescos",
-      description: "Pepsi 1 Litro",
-      name: "Pepsi",
-      price: 20,
-      provider: "Pepsi",
-    };
+    newProduct.createdAt = new Date().getTime();
 
     try {
       // Sube el producto a firebase
@@ -140,3 +133,8 @@ export const startDeleteProduct = (id) => {
   };
 };
 //#endregion Delete Product
+
+export const setActiveProduct = (product) => ({
+  type: TYPES.productsSetActive,
+  payload: product,
+});

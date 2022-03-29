@@ -64,20 +64,7 @@
   }
 }
 
-.btn-logOut {
-  margin: 0;
-  color: white;
-  max-width: max-content;
-  max-height: max-content;
 
-  &:hover {
-    background-color: var(--tertiary);
-  }
-
-  &:active {
-    color: var(--quaternary);
-  }
-}
 
 .journal__entries {
   margin-top: 2rem;
