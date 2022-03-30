@@ -9,9 +9,11 @@ export const HomeScreen = () => {
   //#region Redux
   const dispatch = useDispatch();
 
-  const { products } = useSelector((state) => state.products);
-  const { showForm } = useSelector((state) => state.ui);
-  const { rol } = useSelector((state) => state.auth);
+  const state = useSelector((state) => state);
+
+  const { products } = state.products;
+  const { showForm } = state.ui;
+  const { rol } = state.auth;
   //#endregion Redux
 
   const handleShowForm = () => {
@@ -26,12 +28,17 @@ export const HomeScreen = () => {
         <h1 className="title">Products</h1>
 
         {/* button add */}
-        {rol !== "cajero" && (
-          <button className="btn-add" onClick={handleShowForm}>
-            <span className="material-icons-round">add_circle_outline</span>
-            Add
-          </button>
-        )}
+        <div className="message">
+          <p className={rol === "cajero" && "msg__select"}>
+            Select a product to see more details
+          </p>
+          {rol !== "cajero" && (
+            <button className="btn-add" onClick={handleShowForm}>
+              <span className="material-icons-round">add_circle_outline</span>
+              Add
+            </button>
+          )}
+        </div>
 
         {showForm && <FormProduct />}
 
@@ -52,12 +59,12 @@ export const HomeScreen = () => {
               </tr>
             </thead>
             <tbody>
+              {/* Ordena los productos desde el más reciente */}
               {products
                 .sort((a, b) => b.createdAt - a.createdAt)
                 .map((product, i) => (
                   <ProductItem i={i} key={product.id} product={product} />
                 ))}
-              {/* Ordena los productos del mas reciente */}
             </tbody>
           </table>
         </div>

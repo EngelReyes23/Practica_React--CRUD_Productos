@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import {
@@ -21,6 +21,16 @@ const newProduct = {
   price: 0,
   provider: "",
   stock: 0,
+};
+
+const providers = {
+  refreshments: ["Coca Cola", , "Pepsi", "Fanta", "Big Cola"],
+  snacks: ["Bocadeli", "Diana", "Jummies"],
+};
+
+const categories = {
+  refreshments: ["Refreshments", "Water", "Juices"],
+  snacks: ["Snacks", "Cigarettes", "Beers"],
 };
 
 export const FormProduct = () => {
@@ -46,22 +56,55 @@ export const FormProduct = () => {
     provider,
     stock,
   } = formValues;
+
+  const [isDisabled, setIsDisabled] = useState(false);
   //#endregion States
 
   //#region Handlers
+  const handleIsDisabled = () => {
+    if (isEdit) {
+      rol === "cajero" && setIsDisabled(true);
+    } else setIsDisabled(false);
+  };
+
   const handleHideForm = () => {
     dispatch(setHideForm());
     dispatch(setActiveProduct(null));
   };
 
+  const formIsValid = () => {
+    if (
+      category.trim() === "" ||
+      code.trim() === "" ||
+      description.trim() === "" ||
+      expirationDate.trim() === "" ||
+      name.trim() === "" ||
+      price <= 0 ||
+      provider.trim() === "" ||
+      stock <= 0
+    )
+      return false;
+
+    return true;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    !isEdit
-      ? dispatch(startNewProduct(formValues))
-      : dispatch(startUpdateProduct(formValues));
 
-    dispatch(setActiveProduct(null));
-    dispatch(setHideForm());
+    if (formIsValid()) {
+      !isEdit
+        ? dispatch(startNewProduct(formValues))
+        : dispatch(startUpdateProduct(formValues));
+
+      dispatch(setActiveProduct(null));
+      dispatch(setHideForm());
+    } else {
+      Swal.fire({
+        title: "Error!",
+        text: "All fields are required",
+        icon: "error",
+      });
+    }
   };
 
   const handleDelete = () => {
@@ -77,10 +120,17 @@ export const FormProduct = () => {
       if (result.isConfirmed) {
         dispatch(setActiveProduct(null));
         dispatch(startDeleteProduct(activeProduct.id));
+        dispatch(setHideForm());
       }
     });
   };
   //#endregion Handlers
+
+  //#region Effects
+  useEffect(() => {
+    handleIsDisabled();
+  }, []);
+  //#endregion Effects
 
   return (
     <div className="form__container">
@@ -89,113 +139,147 @@ export const FormProduct = () => {
         onSubmit={handleSubmit}
       >
         <h1>Product</h1>
-        <div>
-          <label htmlFor="code">Code</label>
-          <input
-            id="code"
-            className="form__input"
-            value={code}
-            type="number"
-            name={"code"}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="name">Product</label>
-          <input
-            id="name"
-            className="form__input"
-            value={name}
-            type="text"
-            name="name"
-            onChange={handleInputChange}
-          />
+        <div className="form__group">
+          <div>
+            <label htmlFor="code">Code</label>
+            <input
+              disabled={isDisabled}
+              id="code"
+              className="form__input"
+              value={code}
+              type="number"
+              name={"code"}
+              placeholder="Code"
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="name">Product</label>
+            <input
+              disabled={isDisabled}
+              id="name"
+              className="form__input"
+              value={name}
+              type="text"
+              name="name"
+              placeholder="Product name"
+              onChange={handleInputChange}
+            />
+          </div>
         </div>
 
         <div>
           <label htmlFor="description">Description</label>
           <textarea
+            disabled={isDisabled}
             id="description"
             className="form__input"
             value={description}
             type="text"
             name="description"
+            placeholder="Description"
             onChange={handleInputChange}
           />
         </div>
 
-        <div>
-          <label htmlFor="price">Price</label>
-          <input
-            id="price"
-            className="form__input"
-            value={price}
-            type="number"
-            min="1"
-            name="price"
-            onChange={handleInputChange}
-          />
+        <div className="form__group">
+          <div>
+            <label htmlFor="price">Price</label>
+            <input
+              disabled={isDisabled}
+              id="price"
+              className="form__input"
+              value={price}
+              type="number"
+              min="1"
+              name="price"
+              placeholder="Price"
+              onChange={handleInputChange}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="stock">Stock</label>
+            <input
+              disabled={isDisabled}
+              id="stock"
+              className="form__input"
+              value={stock}
+              min="0"
+              type="number"
+              name="stock"
+              placeholder="Stock"
+              onChange={handleInputChange}
+            />
+          </div>
         </div>
 
-        <div>
-          <label htmlFor="stock">Stock</label>
-          <input
-            id="stock"
-            className="form__input"
-            value={stock}
-            min="0"
-            type="number"
-            name="stock"
-            onChange={handleInputChange}
-          />
+        <div className="form__group ">
+          <div>
+            <label htmlFor="provider">Provider</label>
+            <select
+              disabled={isDisabled}
+              id="provider"
+              className="form__input"
+              value={provider}
+              type="text"
+              name="provider"
+              onChange={handleInputChange}
+            >
+              <option value="" disabled>
+                Select a provider
+              </option>
+              <optgroup label={"Refreshments"}>
+                {providers.refreshments.map((provider) => (
+                  <option key={provider} value={provider}>
+                    {provider}
+                  </option>
+                ))}
+              </optgroup>
+              <optgroup label={"Snacks"}>
+                {providers.snacks.map((provider) => (
+                  <option key={provider} value={provider}>
+                    {provider}
+                  </option>
+                ))}
+              </optgroup>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="category">Category</label>
+            <select
+              disabled={isDisabled}
+              id="category"
+              className="form__input"
+              value={category}
+              type="text"
+              name="category"
+              onChange={handleInputChange}
+            >
+              <option value="" disabled>
+                Select a category
+              </option>
+              {categories.refreshments.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+              {categories.snacks.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+              <option value="other">Other</option>
+            </select>
+          </div>
         </div>
 
-        <div>
-          <label htmlFor="provider">Provider</label>
-          <select
-            id="provider"
-            className="form__input"
-            value={provider}
-            type="text"
-            name="provider"
-            onChange={handleInputChange}
-          >
-            <option value="" disabled>
-              Select a Supplier
-            </option>
-            <option value="Coca-Cola">Coca-Cola</option>
-            <option value="Pepsi">Pepsi</option>
-            <option value="Bimbo">Bimbo</option>
-            <option value="Sprite">Sprite</option>
-            <option value="Coca-Cola Zero">Coca-Cola Zero</option>
-            <option value="Coca-Cola Light">Coca-Cola Light</option>
-          </select>
-        </div>
-
-        <div>
-          <label htmlFor="category">Category</label>
-          <select
-            id="category"
-            className="form__input"
-            value={category}
-            type="text"
-            name="category"
-            onChange={handleInputChange}
-          >
-            <option value="" disabled>
-              Select a Category
-            </option>
-            <option value="Agua">Agua</option>
-            <option value="Galletas">Galletas</option>
-            <option value="Cigarrillos">Cigarrillos</option>
-            <option value="Cerveza">Cerveza</option>
-            <option value="Jugos">Jugos</option>
-          </select>
-        </div>
-
-        <div>
+        <div className="form__group expirationDate">
           <label>Expiration date</label>
           <input
+            disabled={isDisabled}
             className="form__input"
             value={expirationDate}
             type="date"

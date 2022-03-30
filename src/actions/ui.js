@@ -29,6 +29,8 @@ export const startLoading = () => ({ type: TYPES.uiStartLoading });
 // Oculta el loading
 export const finishLoading = () => ({ type: TYPES.uiFinishLoading });
 
+// Muestra el formulario
 export const setShowForm = () => ({ type: TYPES.uiShowForm });
 
+// Oculta el formulario
 export const setHideForm = () => ({ type: TYPES.uiHideForm });

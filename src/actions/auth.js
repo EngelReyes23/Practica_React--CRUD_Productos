@@ -1,7 +1,6 @@
 import Swal from "sweetalert2";
 import { firebase, googleAuthProvider } from "../firebase/firebaseConfig";
 import { TYPES } from "../types/TYPES";
-import { notesLogout } from "./notes";
 import { finishLoading, showError, startLoading } from "./ui";
 
 //#region Login
@@ -93,6 +92,11 @@ export const registerEmailPasswordName = (email, password, name) => {
 //#endregion Register
 
 //#region Logout
+// Se cierra sesión en la app, establece el estado de la app
+const logout = () => ({
+  type: TYPES.logout,
+});
+
 // Se cierra sesión en firebase
 export const startLogout = () => {
   return async (dispatch) => {
@@ -101,13 +105,7 @@ export const startLogout = () => {
     await firebase.auth().signOut();
 
     dispatch(logout());
-    dispatch(notesLogout());
     dispatch(finishLoading());
   };
 };
-
-// Se cierra sesión en la app, establece el estado de la app
-const logout = () => ({
-  type: TYPES.logout,
-});
 //#endregion Logout

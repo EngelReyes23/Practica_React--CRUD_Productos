@@ -58,19 +58,6 @@ export const LoginScreen = () => {
   return (
     <form className={"auth__form"} onSubmit={handleLogin}>
       <h3 className={"auth__title"}>Login</h3>
-      {/* <button
-        onClick={handleGoogleLogin}
-        type={"button"}
-        className={"btn btn-google"}
-      >
-        {" "}
-        <img
-          className="google-icon"
-          src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-          alt="google button"
-        />{" "}
-        Log in with Google
-      </button> */}
 
       {msgError && <div className="auth__alert-error">{msgError}</div>}
 
@@ -105,12 +92,6 @@ export const LoginScreen = () => {
       <button disabled={loading} className={`btn btn-login`} type="submit">
         Login
       </button>
-
-      {/* <p className={"QuestionRegistration"}>Don´t have an account?</p>
-
-      <Link to="/auth/register" className={"btn btn-singUP"}>
-        Sing up
-      </Link> */}
     </form>
   );
 };

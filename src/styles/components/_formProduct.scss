@@ -18,15 +18,61 @@
   padding: 1rem;
   border-radius: 0.5rem;
   overflow: hidden;
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+
   background-color: var(--secondary);
-  
+
+  label {
+    cursor: pointer;
+    text-align: left;
+    margin-bottom: 0.5rem;
+  }
+
+  .form__group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: self-start;
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+
+  .expirationDate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    label {
+      margin: 0;
+    }
+
+    input{
+      max-width: max-content;
+    }
+  }
+
   .form__input {
     text-align: center;
     border: none;
     width: 100%;
     padding: 0.5rem;
     outline: none;
+    resize: vertical;
+    min-height: 2rem;
+    max-height: 5rem;
+
+    &:disabled{
+      background-color: gainsboro;
+      color: black;
+    }
   }
 
   .buttons {
@@ -56,4 +102,10 @@
       background-color: var(--quaternary);
     }
   }
+}
+
+
+
+#description {
+  margin-top: .5rem;
 }

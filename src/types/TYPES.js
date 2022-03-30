@@ -11,14 +11,6 @@ export const TYPES = {
   uiShowForm: "[UI] show form",
   uiHideForm: "[UI] hide form",
 
-  // Notes
-  notesActive: "[Notes] active note",
-  notesAddNew: "[Notes] add new note",
-  notesLogout: "[Notes] logout",
-  notesDelete: "[Notes] delete note",
-  notesLoad: "[Notes] load notes",
-  notesUpdate: "[Notes] update note",
-
   // Products
   productsAddNew: "[Products] add new product",
   productsDelete: "[Products] delete product",
